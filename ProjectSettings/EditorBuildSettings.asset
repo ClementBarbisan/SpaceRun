@@ -10,3 +10,5 @@ EditorBuildSettings:
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e7748439717f4474d9440d45c8f79b70,
       type: 2}
+    com.unity.xr.management.vr_sim_settings: {fileID: 11400000, guid: 5ac0435a6ba43f547a3d0f5fb6e83435,
+      type: 2}
