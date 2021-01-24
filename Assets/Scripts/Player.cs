@@ -7,8 +7,11 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
+    private List<GameObject> _crosshairList;
+    [SerializeField]
+    private GameObject prefabCrosshair;
     public GameObject currentPlanet = null;
-    [SerializeField] private GameObject point;
+    // [SerializeField] private GameObject point;
     [SerializeField] private GameObject projectile;
     private ProjectileManager _objProjectileManager;
     private Camera _cam;
@@ -20,8 +23,19 @@ public class Player : MonoBehaviour
         _cam = Camera.main;
         _objProjectileManager = projectile.GetComponent<ProjectileManager>();
         _tr = transform;
+        _crosshairList = new List<GameObject>();
     }
 
+    public void RemoveCrosshair(int index)
+    {
+        Destroy(_crosshairList[index]);
+        _crosshairList.RemoveAt(index);
+    }
+    public void AddCrosshair()
+    {
+        GameObject crosshair = Instantiate(prefabCrosshair);
+        _crosshairList.Add(crosshair);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -31,14 +45,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_objProjectileManager.projList.Count > 0)
+        if (_crosshairList.Count > 0)
         {
-            point.SetActive(true);
             Vector3 camPos = _cam.transform.position;
-            point.transform.position = (_objProjectileManager.projList[_objProjectileManager.projList.Count - 1].transform.position - (camPos)).normalized * 2f + camPos;    
+            for (int i = 0; i < _crosshairList.Count; i++)
+                _crosshairList[i].transform.position = (_objProjectileManager.projList[i].transform.position - (camPos)).normalized * 3f + camPos;    
         }
-        else
-            point.SetActive(false);
         if (currentPlanet)
         {
             Vector3 planetPos = currentPlanet.transform.position;

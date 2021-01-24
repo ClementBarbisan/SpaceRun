@@ -25,6 +25,7 @@ public class ProjectileManager : MonoBehaviour
 
     public void GetProjectile(GameObject proj)
     {
+        Player.Instance.RemoveCrosshair(projList.IndexOf(proj));
         projList.Remove(proj);
         Destroy(proj);
         // transform.parent = _currentParent;
@@ -40,6 +41,7 @@ public class ProjectileManager : MonoBehaviour
     {
         GameObject go = Instantiate(prefabProj, _tr.parent.position, _tr.parent.rotation);
         projList.Add(go);
+        Player.Instance.AddCrosshair();
         go.GetComponent<Projectile>().parent = this;
         go.GetComponent<Rigidbody>().AddForce(transform.parent.forward * _force, ForceMode.VelocityChange);
         _force = 1f;
@@ -53,7 +55,7 @@ public class ProjectileManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKey("joystick button 14") && projList.Count < maxPrj)
-            _force += Time.deltaTime * 10f;
+            _force += Time.deltaTime * 75f;
         if (Input.GetKeyUp("joystick button 14") && projList.Count < maxPrj)
         {
             LaunchProjectile();

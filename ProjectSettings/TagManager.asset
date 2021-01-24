@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - projectile
-  - weapon
   - Planet
+  - Projectile
   layers:
   - Default
   - TransparentFX
