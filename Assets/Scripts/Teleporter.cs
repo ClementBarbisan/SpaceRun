@@ -32,9 +32,9 @@ public class Teleporter : MonoBehaviour
 
     IEnumerator SwitchPlanet()
     {
+        Player.Instance.currentPlanet = null;
         Vector3 tmpNormal = root.transform.up;
         Vector3 tmpPos = root.transform.position;
-        // Tween tween = root.transform.DOMove(nextPos + tmpPlanet.transform.position, distance / 10f).SetAutoKill();
         float timeElapsed = 0;
         while (timeElapsed < 1f)
         {
