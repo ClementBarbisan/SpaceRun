@@ -10,18 +10,22 @@ public class Teleporter : MonoBehaviour
     private RaycastHit _hit = new RaycastHit();
     private LineRenderer _line;
     private Vector3[] _pos;
-    private Vector3 nextPos = Vector3.zero;
-    private Coroutine jump = null;
-    private Vector3 nextNormal = Vector3.zero;
-    private float distance;
-    private GameObject tmpPlanet;
+    private Vector3 _nextPos = Vector3.zero;
+    private Coroutine _jump = null;
+    private Vector3 _nextNormal = Vector3.zero;
+    private float _distance;
+    private GameObject _tmpPlanet;
 
     public float speed = 1;
+
+    private Transform _tr;
+
     // Start is called before the first frame update
     void Awake()
     {
         _line = GetComponent<LineRenderer>();
         _pos = new Vector3[2];
+        _tr = transform;
         _line.positionCount = 2;
         _line.enabled = false;
     }
@@ -34,13 +38,13 @@ public class Teleporter : MonoBehaviour
         float timeElapsed = 0;
         while (timeElapsed < 1f)
         {
-            timeElapsed += Time.deltaTime * speed * tmpPlanet.transform.localScale.x / distance;
-            root.transform.up = Vector3.Slerp(tmpNormal, nextNormal, timeElapsed);
-            root.transform.position = Vector3.Slerp(tmpPos, nextPos + tmpPlanet.transform.position, timeElapsed);
+            timeElapsed += Time.deltaTime * speed * _tmpPlanet.transform.localScale.x / _distance;
+            root.transform.up = Vector3.Slerp(tmpNormal, _nextNormal, timeElapsed);
+            root.transform.position = Vector3.Slerp(tmpPos, _nextPos + _tmpPlanet.transform.position, timeElapsed);
             yield return null;
         }
-        root.transform.parent = tmpPlanet.transform;
-        Player.Instance.currentPlanet = tmpPlanet;
+        root.transform.parent = _tmpPlanet.transform;
+        Player.Instance.currentPlanet = _tmpPlanet;
     }
 
 // Update is called once per frame
@@ -57,23 +61,23 @@ public class Teleporter : MonoBehaviour
                 if (Input.GetKeyDown("joystick button 5"))
                 {
                     
-                    nextPos = _hit.point - _hit.collider.gameObject.transform.position;
-                    nextNormal = _hit.normal;
-                    distance = _hit.distance;
-                    tmpPlanet = _hit.collider.gameObject;
-                    if (jump != null)
+                    _nextPos = _hit.point - _hit.collider.gameObject.transform.position;
+                    _nextNormal = _hit.normal;
+                    _distance = _hit.distance;
+                    _tmpPlanet = _hit.collider.gameObject;
+                    if (_jump != null)
                     {
-                        StopCoroutine(jump);
-                        jump = null;
+                        StopCoroutine(_jump);
+                        _jump = null;
                     }
-                    jump = StartCoroutine(SwitchPlanet());
+                    _jump = StartCoroutine(SwitchPlanet());
                 }
             }
             else
             {
                 _line.enabled = false;
             }
-            Debug.DrawLine(transform.position, transform.position + transform.forward * 25f);
+            Debug.DrawLine(transform.position, _tr.position + _tr.forward * 25f);
         }
         else
         {

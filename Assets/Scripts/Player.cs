@@ -10,14 +10,16 @@ public class Player : MonoBehaviour
     public GameObject currentPlanet = null;
     [SerializeField] private GameObject point;
     [SerializeField] private GameObject projectile;
-    private Projectile objProjectile;
-    private Camera cam;
+    private ProjectileManager _objProjectileManager;
+    private Camera _cam;
+    private Transform _tr;
 
     private void Awake()
     {
         Instance = this;
-        cam = Camera.main;
-        objProjectile = projectile.GetComponent<Projectile>();
+        _cam = Camera.main;
+        _objProjectileManager = projectile.GetComponent<ProjectileManager>();
+        _tr = transform;
     }
 
     // Start is called before the first frame update
@@ -29,22 +31,21 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!objProjectile.getProj)
+        if (_objProjectileManager.projList.Count > 0)
         {
             point.SetActive(true);
-            point.transform.position = (projectile.transform.position - (Camera.main.transform.position)).normalized * 2f + Camera.main.transform.position;    
+            Vector3 camPos = _cam.transform.position;
+            point.transform.position = (_objProjectileManager.projList[_objProjectileManager.projList.Count - 1].transform.position - (camPos)).normalized * 2f + camPos;    
         }
         else
             point.SetActive(false);
         if (currentPlanet)
         {
-            transform.RotateAround(currentPlanet.transform.position, transform.right, Input.GetAxis("Vertical"));
-            transform.RotateAround(currentPlanet.transform.position, transform.forward, Input.GetAxis("Horizontal"));
+            Vector3 planetPos = currentPlanet.transform.position;
+            transform.RotateAround(planetPos, _tr.right, Input.GetAxis("Vertical"));
+            transform.RotateAround(planetPos, _tr.forward, Input.GetAxis("Horizontal"));
         }
     }
 
-    // private void OnCollisionStay(Collision other)
-    // {
-    //     transform.up = other.contacts[0].normal;
-    // }
+   
 }
