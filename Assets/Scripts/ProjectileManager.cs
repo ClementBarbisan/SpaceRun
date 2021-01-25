@@ -61,13 +61,21 @@ public class ProjectileManager : MonoBehaviour
             LaunchProjectile();
         }
 
-        if (Input.GetKey("joystick button 4") && projList.Count > 0)
+        if (Input.GetKey("joystick button 4") && Player.Instance.indexProj < projList.Count)
         {
-            projList[projList.Count - 1].GetComponent<Rigidbody>().isKinematic = true;
-            projList[projList.Count - 1].transform.position +=
-                (Player.Instance.transform.position - projList[projList.Count - 1].transform.position).normalized *
+            projList[Player.Instance.indexProj].GetComponent<Rigidbody>().isKinematic = true;
+            projList[Player.Instance.indexProj].transform.position +=
+                (Player.Instance.transform.position - projList[Player.Instance.indexProj].transform.position).normalized *
                 Time.deltaTime * 75f;
             // GetProjectile(projList[projList.Count - 1]);
         }
+        else if (projList.Count > 0 && Player.Instance.indexProj < projList.Count)      
+            projList[Player.Instance.indexProj].GetComponent<Rigidbody>().isKinematic = false;
+    }
+
+    public void ChangeIndex()
+    {
+        for (int i = 0; i < projList.Count; i++)
+            projList[i].GetComponent<Rigidbody>().isKinematic = false;
     }
 }

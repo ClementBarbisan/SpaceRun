@@ -16,10 +16,14 @@ public class Player : MonoBehaviour
     private ProjectileManager _objProjectileManager;
     private Camera _cam;
     private Transform _tr;
+    public int indexProj = 0;
+    private Vector3 currentScaleCrosshair = Vector3.one;
+    [SerializeField] private float timeOut;
 
     private void Awake()
     {
         Instance = this;
+        currentScaleCrosshair = prefabCrosshair.transform.localScale;
         _cam = Camera.main;
         _objProjectileManager = projectile.GetComponent<ProjectileManager>();
         _tr = transform;
@@ -30,6 +34,11 @@ public class Player : MonoBehaviour
     {
         Destroy(_crosshairList[index]);
         _crosshairList.RemoveAt(index);
+        if (indexProj > _crosshairList.Count)
+        {
+            indexProj--;
+            _objProjectileManager.ChangeIndex();
+        }
     }
     public void AddCrosshair()
     {
@@ -49,7 +58,22 @@ public class Player : MonoBehaviour
         {
             Vector3 camPos = _cam.transform.position;
             for (int i = 0; i < _crosshairList.Count; i++)
-                _crosshairList[i].transform.position = (_objProjectileManager.projList[i].transform.position - (camPos)).normalized * 3f + camPos;    
+            {
+                if (i == indexProj)
+                    _crosshairList[i].transform.localScale = currentScaleCrosshair * 2.5f;
+                else
+                    _crosshairList[i].transform.localScale = currentScaleCrosshair;
+                _crosshairList[i].transform.position =
+                    (_objProjectileManager.projList[i].transform.position - (camPos)).normalized * 3f + camPos;
+            }
+        }
+
+        timeOut -= Time.deltaTime;
+        if (Mathf.Abs(Input.GetAxis("HorizontalLeft")) > 0.05f && timeOut <= 0)
+        {
+            indexProj = (indexProj + (int)Mathf.Sign(Input.GetAxis("HorizontalLeft")) * 1) % _crosshairList.Count;
+            _objProjectileManager.ChangeIndex();
+            timeOut = 0.25f;
         }
         if (currentPlanet)
         {
