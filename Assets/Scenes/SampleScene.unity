@@ -1626,6 +1626,31 @@ PrefabInstance:
       propertyPath: UseMLAPIRelay
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7177333181705391959, guid: be91d6cda4713ed4db5b764df02ca8e6,
+        type: 3}
+      propertyPath: ConnectAddress
+      value: 192.168.1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177333181705391959, guid: be91d6cda4713ed4db5b764df02ca8e6,
+        type: 3}
+      propertyPath: SupportWebsocket
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177333181705391959, guid: be91d6cda4713ed4db5b764df02ca8e6,
+        type: 3}
+      propertyPath: Channels.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177333181705391959, guid: be91d6cda4713ed4db5b764df02ca8e6,
+        type: 3}
+      propertyPath: Channels.Array.data[0].Name
+      value: Reliable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177333181705391959, guid: be91d6cda4713ed4db5b764df02ca8e6,
+        type: 3}
+      propertyPath: Channels.Array.data[0].Type
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be91d6cda4713ed4db5b764df02ca8e6, type: 3}
 --- !u!1 &1402529940
