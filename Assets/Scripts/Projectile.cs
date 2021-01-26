@@ -25,7 +25,7 @@ public class Projectile : NetworkedBehaviour
         if (IsOwner)
             _rb.AddForce(transform.forward * transform.localScale.magnitude, ForceMode.Acceleration);
     }
-
+    [ClientRPC]
     public void RestartPlayer()
     {
         Player.Instance.dead++;
@@ -56,14 +56,14 @@ public class Projectile : NetworkedBehaviour
 
         if (other.CompareTag("Player"))
         {
-            if (other.GetComponent<NetworkedObject>().IsLocalPlayer)
-                parentProjectileManager.GetProjectile(gameObject);
-            else
-            {
+            // if (other.GetComponent<NetworkedObject>().IsLocalPlayer)
+            //     parentProjectileManager.GetProjectile(gameObject);
+            // else
+            // {
                 Player.Instance.kills++;
                 InvokeClientRpcOnClient("RestartPlayer", other.GetComponent<PlayerPrefab>().OwnerClientId);
                 Debug.Log("DIE");
-            }
+            // }
         }
         if (other.CompareTag("Target"))
         {
