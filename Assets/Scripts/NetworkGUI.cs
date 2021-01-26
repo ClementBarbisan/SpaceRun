@@ -85,6 +85,7 @@ public class NetworkGUI : MonoBehaviour
                 NetworkProfiler.Start(profilerHistoryLength);
                 foreach (NetworkedTransform obj in allNetworkedObjects)
                     obj.enabled = true;
+                Player.Instance.StartPosition();
             }
             if (GUILayout.Button("Start Server"))
             {
@@ -97,6 +98,7 @@ public class NetworkGUI : MonoBehaviour
                 NetworkProfiler.Start(profilerHistoryLength);
                 foreach (NetworkedTransform obj in allNetworkedObjects)
                     obj.enabled = true;
+                Player.Instance.StartPosition();
             }
         }
         else if (nm.IsHost)

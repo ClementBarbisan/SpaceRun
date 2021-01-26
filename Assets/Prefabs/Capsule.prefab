@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 7383966188790530199}
   - component: {fileID: -3754985370112105809}
   - component: {fileID: -8168873716706050520}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

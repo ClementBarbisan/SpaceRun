@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {
@@ -20,7 +21,8 @@ public class Player : MonoBehaviour
     private Vector3 currentScaleCrosshair = Vector3.one;
     [SerializeField] private float timeOut;
     public ulong id = 0;
-
+    public int kills = 0;
+    public int dead = 0;
     private void Awake()
     {
         Instance = this;
@@ -35,12 +37,25 @@ public class Player : MonoBehaviour
     {
         Destroy(_crosshairList[index]);
         _crosshairList.RemoveAt(index);
-        if (indexProj > _crosshairList.Count)
+        if (indexProj >= _crosshairList.Count)
         {
-            indexProj--;
+            indexProj = Mathf.Clamp(0, _crosshairList.Count - 1, indexProj--);
             _objProjectileManager.ChangeIndex();
         }
+
     }
+
+    public void StartPosition()
+    {
+        GameObject[] planets = GameObject.FindGameObjectsWithTag("Planet");
+        int index = Random.Range(0, planets.Length);
+        RaycastHit hit = new RaycastHit();
+        Physics.Raycast(_tr.position, planets[index].gameObject.transform.position - _tr.position, out hit);
+        _tr.position = hit.point;
+        _tr.up = hit.normal;
+        _tr.parent = hit.collider.gameObject.transform;
+    }
+    
     public void AddCrosshair()
     {
         GameObject crosshair = Instantiate(prefabCrosshair);
@@ -55,6 +70,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Kills = " + kills.ToString());
         if (_crosshairList.Count > 0)
         {
             Vector3 camPos = _cam.transform.position;
@@ -70,9 +86,9 @@ public class Player : MonoBehaviour
         }
 
         timeOut -= Time.deltaTime;
-        if (Mathf.Abs(Input.GetAxis("HorizontalLeft")) > 0.05f && timeOut <= 0)
+        if (Mathf.Abs(Input.GetAxis("HorizontalLeft")) > 0.05f && timeOut <= 0 && _crosshairList.Count > 1)
         {
-            indexProj = (indexProj + (int)Mathf.Sign(Input.GetAxis("HorizontalLeft")) * 1) % _crosshairList.Count;
+            indexProj = Mathf.Clamp(0, _crosshairList.Count - 1, indexProj + (int)Mathf.Sign(Input.GetAxis("HorizontalLeft")) * 1 % _crosshairList.Count);
             _objProjectileManager.ChangeIndex();
             timeOut = 0.25f;
         }

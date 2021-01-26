@@ -69,11 +69,13 @@ public class ProjectileManager : NetworkedBehaviour
             projList[Player.Instance.indexProj].GetComponent<Rigidbody>().isKinematic = true;
             projList[Player.Instance.indexProj].transform.position +=
                 (Player.Instance.transform.position - projList[Player.Instance.indexProj].transform.position).normalized *
-                Time.deltaTime * 75f;
+                Time.deltaTime * 2f * ((Player.Instance.transform.position - projList[Player.Instance.indexProj].transform.position).magnitude + 5f);
             // GetProjectile(projList[projList.Count - 1]);
         }
-        else if (projList.Count > 0 && Player.Instance.indexProj < projList.Count)      
+        else if (projList.Count > 0 && Player.Instance.indexProj < projList.Count)
+        {
             projList[Player.Instance.indexProj].GetComponent<Rigidbody>().isKinematic = false;
+        }
     }
 
     public void ChangeIndex()

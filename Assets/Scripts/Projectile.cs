@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using MLAPI;
+using MLAPI.Messaging;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -25,6 +26,12 @@ public class Projectile : NetworkedBehaviour
             _rb.AddForce(transform.forward * transform.localScale.magnitude, ForceMode.Acceleration);
     }
 
+    public void RestartPlayer()
+    {
+        Player.Instance.dead++;
+        Player.Instance.StartPosition();
+    }
+    
     IEnumerator ExploseTarget(GameObject target)
     {
         Material mat = target.GetComponent<Renderer>().material;
@@ -42,11 +49,22 @@ public class Projectile : NetworkedBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Planet") || other.CompareTag("Player"))
+        if (other.CompareTag("Planet"))
         {
             parentProjectileManager.GetProjectile(gameObject);
         }
 
+        if (other.CompareTag("Player"))
+        {
+            if (other.GetComponent<NetworkedObject>().IsLocalPlayer)
+                parentProjectileManager.GetProjectile(gameObject);
+            else
+            {
+                Player.Instance.kills++;
+                InvokeClientRpcOnClient("RestartPlayer", other.GetComponent<PlayerPrefab>().OwnerClientId);
+                Debug.Log("DIE");
+            }
+        }
         if (other.CompareTag("Target"))
         {
             StartCoroutine(ExploseTarget(other.gameObject));

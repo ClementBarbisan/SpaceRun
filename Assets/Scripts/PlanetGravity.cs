@@ -31,7 +31,7 @@ public class PlanetGravity : MonoBehaviour
                 _tr.position.y - otherPos.y,
                 _tr.position.z - otherPos.z).normalized;
             float value = 1f / (Mathf.Pow(Vector3.Distance(_tr.position, otherPos)
-                                          / (_collider.radius * _tr.parent.localScale.x * 5f), 2)) * Time.deltaTime * 25f;
+                                          / (_collider.radius * _tr.parent.localScale.x * 2.5f), 2)) * Time.deltaTime * 25f;
             other.attachedRigidbody.AddForce(new Vector3(direction.x * value, direction.y * value, direction.z * value), ForceMode.Acceleration);
         }
     }
