@@ -3,7 +3,9 @@ using MLAPI.Profiling;
 using System.Collections;
 using System.Linq;
 using MLAPI.Prototyping;
+using MLAPI.Transports.UNET;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class NetworkGUI : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class NetworkGUI : MonoBehaviour
     byteCountStruct[] byteCountArray = new byteCountStruct[byteCountArrayMax];
     ulong rtt = 0;
 
+    private string ip;
     // Run every 1/10 sec and store 10 for one sec of data
     IEnumerator calcByteCount()
     {
@@ -70,7 +73,6 @@ public class NetworkGUI : MonoBehaviour
             Player.Instance.id = id;
         };
         NetworkingManager.Singleton.OnClientDisconnectCallback += id => { Debug.Log($"Client disconnect with id: {id}"); };
-
         StartCoroutine(calcByteCount());
     }
 
@@ -79,6 +81,9 @@ public class NetworkGUI : MonoBehaviour
         NetworkingManager nm = NetworkingManager.Singleton;
         if (!(nm.IsHost || nm.IsServer || nm.IsClient))
         {
+            ip = GUILayout.TextField(ip);
+            UnetTransport transport = nm.GetComponent<UnetTransport>();
+            transport.ConnectAddress = ip;
             if (GUILayout.Button("Start Host"))
             {
                 nm.StartHost();
@@ -104,7 +109,11 @@ public class NetworkGUI : MonoBehaviour
         else if (nm.IsHost)
         {
             if (GUILayout.Button("Stop Host"))
+            {
                 nm.StopHost();
+                foreach (NetworkedTransform obj in allNetworkedObjects)
+                    obj.enabled = false;
+            }
         }
         else if (nm.IsServer)
         {
@@ -114,7 +123,11 @@ public class NetworkGUI : MonoBehaviour
         else if (nm.IsClient)
         {
             if (GUILayout.Button("Stop Client"))
+            {
                 nm.StopClient();
+                foreach (NetworkedTransform obj in allNetworkedObjects)
+                    obj.enabled = false;
+            }
         }
 
         // Counts do not include MLAPI overhead!
