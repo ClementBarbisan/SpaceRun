@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     public void StartPosition()
     {
         GameObject[] planets = GameObject.FindGameObjectsWithTag("Planet");
+        Random.seed = (int)Time.time;
         int index = Random.Range(0, planets.Length);
         RaycastHit hit = new RaycastHit();
         Physics.Raycast(_tr.position, planets[index].gameObject.transform.position - _tr.position, out hit);
@@ -70,7 +71,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Kills = " + kills.ToString());
         if (_crosshairList.Count > 0)
         {
             Vector3 camPos = _cam.transform.position;

@@ -11,6 +11,7 @@ public class PlayerPrefab : NetworkedBehaviour
         base.NetworkStart();
         if (!IsLocalPlayer)
             return;
+        Player.Instance.id = OwnerClientId;
         transform.parent = GameObject.Find("PlayerStart").transform;
         transform.localPosition = Vector3.zero;
     }

@@ -14,9 +14,14 @@ public class Projectile : NetworkedBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        parentProjectileManager = FindObjectOfType<ProjectileManager>();
         _rb = GetComponent<Rigidbody>();
+        parentProjectileManager.projList.Add(gameObject);
+        Player.Instance.AddCrosshair();
         if (!IsOwner)
             _rb.isKinematic = true;
+        else
+            _rb.AddForce(transform.forward * parentProjectileManager.force, ForceMode.VelocityChange);
     }
 
     // Update is called once per frame

@@ -70,7 +70,6 @@ public class NetworkGUI : MonoBehaviour
         foreach (NetworkedTransform obj in allNetworkedObjects)
             obj.enabled = false;
         NetworkingManager.Singleton.OnClientConnectedCallback += id => { Debug.Log($"Client connected with id: {id}");
-            Player.Instance.id = id;
         };
         NetworkingManager.Singleton.OnClientDisconnectCallback += id => { Debug.Log($"Client disconnect with id: {id}"); };
         StartCoroutine(calcByteCount());
@@ -81,9 +80,9 @@ public class NetworkGUI : MonoBehaviour
         NetworkingManager nm = NetworkingManager.Singleton;
         if (!(nm.IsHost || nm.IsServer || nm.IsClient))
         {
-            ip = GUILayout.TextField(ip);
-            UnetTransport transport = nm.GetComponent<UnetTransport>();
-            transport.ConnectAddress = ip;
+            // ip = GUILayout.TextField(ip);
+            // UnetTransport transport = nm.GetComponent<UnetTransport>();
+            // transport.ConnectAddress = ip;
             if (GUILayout.Button("Start Host"))
             {
                 nm.StartHost();

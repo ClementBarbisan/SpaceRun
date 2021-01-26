@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using MLAPI;
+using MLAPI.Messaging;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ProjectileManager : NetworkedBehaviour
 {
@@ -9,7 +11,7 @@ public class ProjectileManager : NetworkedBehaviour
     // public bool getProj = true;
     // private Transform _currentParent;
     [SerializeField] private GameObject prefabProj;
-    private float _force;
+    [FormerlySerializedAs("_force")] public float force;
     private Transform _tr;
     [SerializeField]
     private int maxPrj = 3;
@@ -38,16 +40,12 @@ public class ProjectileManager : NetworkedBehaviour
         // _tr.position = _tr.parent.position;
         // _tr.rotation = _tr.parent.rotation;
     }
-
-    void LaunchProjectile()
+    [ServerRPC(RequireOwnership = false)]
+    void LaunchProjectile(ulong id, Vector3 pos, Quaternion rot)
     {
-        GameObject go = Instantiate(prefabProj, _tr.parent.position, _tr.parent.rotation);
-        go.GetComponent<NetworkedObject>().SpawnWithOwnership(Player.Instance.id);
-        projList.Add(go);
-        Player.Instance.AddCrosshair();
-        go.GetComponent<Projectile>().parentProjectileManager = this;
-        go.GetComponent<Rigidbody>().AddForce(transform.parent.forward * _force, ForceMode.VelocityChange);
-        _force = 1f;
+        GameObject go = Instantiate(prefabProj, pos, rot);
+        go.GetComponent<NetworkedObject>().SpawnWithOwnership(id);
+        force = 1f;
         // getProj = false;
         // tag = "projectile";
         // _rb.AddForce(transform.parent.forward * _force, ForceMode.VelocityChange);
@@ -58,10 +56,15 @@ public class ProjectileManager : NetworkedBehaviour
     void Update()
     {
         if (Input.GetKey("joystick button 14") && projList.Count < maxPrj)
-            _force += Time.deltaTime * 75f;
+            force += Time.deltaTime * 75f;
         if (Input.GetKeyUp("joystick button 14") && projList.Count < maxPrj)
         {
-            LaunchProjectile();
+            if (isServer)
+                LaunchProjectile(Player.Instance.id, _tr.parent.position, _tr.parent.rotation);
+            else
+            {
+                InvokeServerRpc("LaunchProjectile", Player.Instance.id, _tr.parent.position, _tr.parent.rotation);
+            }
         }
 
         if (Input.GetKey("joystick button 4") && Player.Instance.indexProj < projList.Count)
