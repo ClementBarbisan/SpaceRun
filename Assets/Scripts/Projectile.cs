@@ -17,11 +17,13 @@ public class Projectile : NetworkedBehaviour
         parentProjectileManager = FindObjectOfType<ProjectileManager>();
         _rb = GetComponent<Rigidbody>();
         parentProjectileManager.projList.Add(gameObject);
-        Player.Instance.AddCrosshair();
         if (!IsOwner)
             _rb.isKinematic = true;
         else
+        {
+            Player.Instance.AddCrosshair();
             _rb.AddForce(transform.forward * parentProjectileManager.force, ForceMode.VelocityChange);
+        }
     }
 
     // Update is called once per frame
