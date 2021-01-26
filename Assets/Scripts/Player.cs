@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public int indexProj = 0;
     private Vector3 currentScaleCrosshair = Vector3.one;
     [SerializeField] private float timeOut;
+    public ulong id = 0;
 
     private void Awake()
     {

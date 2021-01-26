@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MLAPI;
 using UnityEngine;
 
-public class ProjectileManager : MonoBehaviour
+public class ProjectileManager : NetworkedBehaviour
 {
     // private Rigidbody _rb;
     // public bool getProj = true;
@@ -28,6 +29,7 @@ public class ProjectileManager : MonoBehaviour
         Player.Instance.RemoveCrosshair(projList.IndexOf(proj));
         projList.Remove(proj);
         Destroy(proj);
+        
         // transform.parent = _currentParent;
         // getProj = true;
         // tag = "weapon";
@@ -40,9 +42,10 @@ public class ProjectileManager : MonoBehaviour
     void LaunchProjectile()
     {
         GameObject go = Instantiate(prefabProj, _tr.parent.position, _tr.parent.rotation);
+        go.GetComponent<NetworkedObject>().SpawnWithOwnership(Player.Instance.id);
         projList.Add(go);
         Player.Instance.AddCrosshair();
-        go.GetComponent<Projectile>().parent = this;
+        go.GetComponent<Projectile>().parentProjectileManager = this;
         go.GetComponent<Rigidbody>().AddForce(transform.parent.forward * _force, ForceMode.VelocityChange);
         _force = 1f;
         // getProj = false;
