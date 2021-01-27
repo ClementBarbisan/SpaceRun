@@ -45,7 +45,6 @@ public class ProjectileManager : NetworkedBehaviour
     {
         GameObject go = Instantiate(prefabProj, pos, rot);
         go.GetComponent<NetworkedObject>().SpawnWithOwnership(id);
-        force = 1f;
         // getProj = false;
         // tag = "projectile";
         // _rb.AddForce(transform.parent.forward * _force, ForceMode.VelocityChange);
@@ -59,7 +58,7 @@ public class ProjectileManager : NetworkedBehaviour
             force += Time.deltaTime * 75f;
         if (Input.GetKeyUp("joystick button 14") && projList.Count < maxPrj)
         {
-            if (isServer)
+            if (IsServer)
                 LaunchProjectile(Player.Instance.id, _tr.parent.position, _tr.parent.rotation);
             else
             {

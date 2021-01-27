@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     public void StartPosition()
     {
         GameObject[] planets = GameObject.FindGameObjectsWithTag("Planet");
-        Random.seed = (int)Time.time;
+        Random.InitState((int)Time.time);
         int index = Random.Range(0, planets.Length);
         RaycastHit hit = new RaycastHit();
         Physics.Raycast(_tr.position, planets[index].gameObject.transform.position - _tr.position, out hit);
@@ -82,13 +82,15 @@ public class Player : MonoBehaviour
                     _crosshairList[i].transform.localScale = currentScaleCrosshair;
                 _crosshairList[i].transform.position =
                     (_objProjectileManager.projList[i].transform.position - (camPos)).normalized * 3f + camPos;
+                _crosshairList[i].transform.forward =
+                    (_objProjectileManager.projList[i].transform.position - (camPos));
             }
         }
 
         timeOut -= Time.deltaTime;
         if (Mathf.Abs(Input.GetAxis("HorizontalLeft")) > 0.05f && timeOut <= 0 && _crosshairList.Count > 1)
         {
-            indexProj = Mathf.Clamp(0, _crosshairList.Count - 1, indexProj + (int)Mathf.Sign(Input.GetAxis("HorizontalLeft")) * 1 % _crosshairList.Count);
+            indexProj = Mathf.Clamp(indexProj + (int)Mathf.Sign(Input.GetAxis("HorizontalLeft")) * 1 % _crosshairList.Count, 0, _crosshairList.Count - 1);
             _objProjectileManager.ChangeIndex();
             timeOut = 0.25f;
         }

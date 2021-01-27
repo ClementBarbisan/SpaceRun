@@ -66,20 +66,12 @@
     },
     "com.unity.render-pipelines.core": {
       "version": "7.5.2",
-      "depth": 1,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.ugui": "1.0.0"
       },
       "url": "https://packages.unity.com"
-    },
-    "com.unity.render-pipelines.high-definition-config": {
-      "version": "file:../LocalPackages/com.unity.render-pipelines.high-definition-config",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.unity.render-pipelines.core": "7.5.2"
-      }
     },
     "com.unity.settings-manager": {
       "version": "1.0.3",

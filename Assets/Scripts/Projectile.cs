@@ -23,6 +23,7 @@ public class Projectile : NetworkedBehaviour
         {
             Player.Instance.AddCrosshair();
             _rb.AddForce(transform.forward * parentProjectileManager.force, ForceMode.VelocityChange);
+            parentProjectileManager.force = 1f;
         }
     }
 
