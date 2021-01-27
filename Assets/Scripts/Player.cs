@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
     {
         if (_crosshairList.Count > 0)
         {
-            Vector3 camPos = _cam.transform.position;
+            Vector3 camPos = _cam.gameObject.transform.position;
             for (int i = 0; i < _crosshairList.Count; i++)
             {
                 if (i == indexProj)
