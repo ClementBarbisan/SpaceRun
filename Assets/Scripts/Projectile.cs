@@ -57,7 +57,7 @@ public class Projectile : NetworkedBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Planet"))
+        if (other.CompareTag("Planet") || other.CompareTag("Shield"))
         {
             parentProjectileManager.GetProjectile(gameObject);
         }
