@@ -50,9 +50,9 @@ LightmapSettings:
     m_BounceScale: 1
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
-    m_EnvironmentLightingMode: 0
+    m_EnvironmentLightingMode: 1
     m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 12
     m_Resolution: 2
@@ -2436,6 +2436,11 @@ PrefabInstance:
       propertyPath: m_AllowMSAA
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4559640569584683500, guid: bcb81063bdd05e24d9263685199b92d3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.18301392
+      objectReference: {fileID: 0}
     - target: {fileID: 4559640569788681394, guid: bcb81063bdd05e24d9263685199b92d3,
         type: 3}
       propertyPath: m_RootOrder
@@ -2500,6 +2505,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 4559640570726420692, guid: bcb81063bdd05e24d9263685199b92d3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.183
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4559640569788681402, guid: bcb81063bdd05e24d9263685199b92d3, type: 3}
