@@ -8,6 +8,7 @@ TagManager:
   - Projectile
   - Target
   - Shield
+  - RightController
   layers:
   - Default
   - TransparentFX

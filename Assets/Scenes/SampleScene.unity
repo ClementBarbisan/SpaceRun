@@ -332,29 +332,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 74672980, guid: 0b59e40296d6f974097c549f1e08c652, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0b59e40296d6f974097c549f1e08c652, type: 3}
---- !u!1 &141232173 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8480853373176410612, guid: 0b59e40296d6f974097c549f1e08c652,
-    type: 3}
-  m_PrefabInstance: {fileID: 2349374723113885900}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &141232174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141232173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 209037615, guid: 01701b64234b4d523d8045142cbc73fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkedInstanceId: 0
-  PrefabHash: 6031255625696906582
-  PrefabHashGenerator: Target
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
 --- !u!1 &228827862
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,12 +801,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &722914270 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4559640569788681394, guid: bcb81063bdd05e24d9263685199b92d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4559640569439341726}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &763206167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1110,36 +1081,6 @@ MonoBehaviour:
   PrefabHashGenerator: Sphere (3)
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
---- !u!1 &895588111
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 895588112}
-  m_Layer: 0
-  m_Name: PlayerStart
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &895588112
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895588111}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 722914270}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1113554850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1878,29 +1819,6 @@ MonoBehaviour:
   PrefabHashGenerator: Sphere (4)
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
---- !u!1 &1742169357 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4559640570161372279, guid: bcb81063bdd05e24d9263685199b92d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4559640569439341726}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1742169362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742169357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 209037615, guid: 01701b64234b4d523d8045142cbc73fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkedInstanceId: 0
-  PrefabHash: 3641838029163882729
-  PrefabHashGenerator: ProjectileManager
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
 --- !u!1 &1888676439 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8480853373176410612, guid: 0b59e40296d6f974097c549f1e08c652,
@@ -2416,13 +2334,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Target
       objectReference: {fileID: 0}
-    - target: {fileID: 8480853373176410612, guid: 0b59e40296d6f974097c549f1e08c652,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 74672980, guid: 0b59e40296d6f974097c549f1e08c652, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b59e40296d6f974097c549f1e08c652, type: 3}
 --- !u!1001 &4559640569439341726
 PrefabInstance:
@@ -2431,26 +2343,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4559640569581574400, guid: bcb81063bdd05e24d9263685199b92d3,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 4559640569584640493, guid: bcb81063bdd05e24d9263685199b92d3,
-        type: 3}
-      propertyPath: m_HDR
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4559640569584640493, guid: bcb81063bdd05e24d9263685199b92d3,
-        type: 3}
-      propertyPath: m_AllowMSAA
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4559640569584683500, guid: bcb81063bdd05e24d9263685199b92d3,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.18301392
-      objectReference: {fileID: 0}
     - target: {fileID: 4559640569788681394, guid: bcb81063bdd05e24d9263685199b92d3,
         type: 3}
       propertyPath: m_RootOrder
@@ -2511,22 +2403,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: XRRig
       objectReference: {fileID: 0}
-    - target: {fileID: 4559640569788681404, guid: bcb81063bdd05e24d9263685199b92d3,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 4559640570726420692, guid: bcb81063bdd05e24d9263685199b92d3,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.183
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4559640569788681402, guid: bcb81063bdd05e24d9263685199b92d3, type: 3}
-    - {fileID: 4559640569788681405, guid: bcb81063bdd05e24d9263685199b92d3, type: 3}
-    - {fileID: 4559640569788681401, guid: bcb81063bdd05e24d9263685199b92d3, type: 3}
-    - {fileID: 4559640569788681400, guid: bcb81063bdd05e24d9263685199b92d3, type: 3}
-    - {fileID: 4559640569788681396, guid: bcb81063bdd05e24d9263685199b92d3, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcb81063bdd05e24d9263685199b92d3, type: 3}
 --- !u!1001 &5696432387064448621
 PrefabInstance:
@@ -2594,11 +2471,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sphere
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696432386966161348, guid: 277c1cb467d6cf846867cb20a7645f38,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 277c1cb467d6cf846867cb20a7645f38, type: 3}
