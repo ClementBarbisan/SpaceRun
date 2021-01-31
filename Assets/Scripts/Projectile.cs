@@ -75,6 +75,7 @@ public class Projectile : NetworkedBehaviour
         }
         if (other.CompareTag("Target"))
         {
+            parentProjectileManager.GetProjectile(gameObject);
             StartCoroutine(ExploseTarget(other.gameObject));
         }
     }
