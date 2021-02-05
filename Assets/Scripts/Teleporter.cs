@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Teleporter : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class Teleporter : MonoBehaviour
     public float speed = 1;
 
     private Transform _tr;
+    private bool canTeleport = false;
+    private bool aim = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -47,10 +50,49 @@ public class Teleporter : MonoBehaviour
         Player.Instance.currentPlanet = _tmpPlanet;
     }
 
+    public void OnTeleport(InputAction.CallbackContext context)
+    {
+        if (!context.started)
+            return;
+        if (!canTeleport)
+            return;
+        _nextPos = _hit.point - _hit.collider.gameObject.transform.position;
+        _nextNormal = _hit.normal;
+        _distance = _hit.distance;
+        _tmpPlanet = _hit.collider.gameObject;
+        if (_jump != null)
+        {
+            StopCoroutine(_jump);
+            _jump = null;
+        }
+        _jump = StartCoroutine(SwitchPlanet());
+    }
+    
+    public void OnAim(InputAction.CallbackContext context)
+    {
+        if (!context.started)
+            return;
+        Debug.Log("Blop");
+        aim = true;
+        
+    }
+
+    public void OnRelease(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnReleaseBEfore");
+
+        if (!context.performed)
+            return;
+        Debug.Log("OnRelease");
+        aim = false;
+        _line.enabled = false;
+    }
+    
+
 // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("joystick button 15"))
+        if (aim)
         {
             if (Physics.Raycast(transform.position, transform.forward, out _hit))
             {
@@ -58,30 +100,13 @@ public class Teleporter : MonoBehaviour
                 _pos[0] = transform.position;
                 _pos[1] = _hit.point;
                 _line.SetPositions(_pos);
-                if (Input.GetKeyDown("joystick button 5"))
-                {
-                    
-                    _nextPos = _hit.point - _hit.collider.gameObject.transform.position;
-                    _nextNormal = _hit.normal;
-                    _distance = _hit.distance;
-                    _tmpPlanet = _hit.collider.gameObject;
-                    if (_jump != null)
-                    {
-                        StopCoroutine(_jump);
-                        _jump = null;
-                    }
-                    _jump = StartCoroutine(SwitchPlanet());
-                }
+                canTeleport = true;
             }
             else
             {
+                canTeleport = false;
                 _line.enabled = false;
             }
-            Debug.DrawLine(transform.position, _tr.position + _tr.forward * 25f);
-        }
-        else
-        {
-            _line.enabled = false;
         }
     }
 }

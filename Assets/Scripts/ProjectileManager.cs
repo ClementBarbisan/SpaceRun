@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MLAPI;
 using MLAPI.Messaging;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 public class ProjectileManager : NetworkedBehaviour
@@ -16,6 +17,9 @@ public class ProjectileManager : NetworkedBehaviour
     [SerializeField]
     private int maxPrj = 3;
     public List<GameObject> projList;
+    private bool onReturn = false;
+    private bool addForce = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -50,13 +54,14 @@ public class ProjectileManager : NetworkedBehaviour
         // _rb.AddForce(transform.parent.forward * _force, ForceMode.VelocityChange);
         // _tr.parent = null;
     }
-    
-    // Update is called once per frame
-    void Update()
+
+    public void OnFire(InputAction.CallbackContext context)
     {
-        if (Input.GetKey("joystick button 14") && projList.Count < maxPrj)
-            force += Time.deltaTime * 75f;
-        if (Input.GetKeyUp("joystick button 14") && projList.Count < maxPrj)
+        if (!context.started)
+
+            return;
+        addForce = false;
+        if (projList.Count < maxPrj)
         {
             if (IsServer)
                 LaunchProjectile(Player.Instance.id, _tr.parent.position, _tr.parent.rotation);
@@ -64,20 +69,56 @@ public class ProjectileManager : NetworkedBehaviour
             {
                 InvokeServerRpc("LaunchProjectile", Player.Instance.id, _tr.parent.position, _tr.parent.rotation);
             }
-        }
 
-        if (Input.GetKey("joystick button 4") && Player.Instance.indexProj < projList.Count)
-        {
-            projList[Player.Instance.indexProj].GetComponent<Rigidbody>().isKinematic = true;
-            projList[Player.Instance.indexProj].transform.position +=
-                (Player.Instance.transform.position - projList[Player.Instance.indexProj].transform.position).normalized *
-                Time.deltaTime * 2f * ((Player.Instance.transform.position - projList[Player.Instance.indexProj].transform.position).magnitude + 5f);
-            // GetProjectile(projList[projList.Count - 1]);
+            
         }
-        else if (projList.Count > 0 && Player.Instance.indexProj < projList.Count)
+        force = 1f;
+    }
+
+    public void OnStopReturn(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+
+            return;
+        onReturn = false;
+        if (projList.Count > 0 && Player.Instance.indexProj < projList.Count)
         {
             projList[Player.Instance.indexProj].GetComponent<Rigidbody>().isKinematic = false;
         }
+    }
+    
+    public void OnReturn(InputAction.CallbackContext context)
+    {
+        if (!context.started)
+
+            return;
+        onReturn = true;
+        
+    }
+
+    public void OnAddForce(InputAction.CallbackContext context)
+    {
+        if (!context.started)
+
+            return;
+        addForce = true;
+    }
+    
+    // Update is called once per frame
+    void Update()
+    {
+       if (projList.Count < maxPrj && addForce)
+           force += Time.deltaTime * 75f;
+       if (Player.Instance.indexProj < projList.Count && onReturn)
+       {
+           projList[Player.Instance.indexProj].GetComponent<Rigidbody>().isKinematic = true;
+           projList[Player.Instance.indexProj].transform.position +=
+               (Player.Instance.transform.position - projList[Player.Instance.indexProj].transform.position)
+               .normalized *
+               Time.deltaTime * 2f *
+               ((Player.Instance.transform.position - projList[Player.Instance.indexProj].transform.position)
+                   .magnitude + 5f);
+       }
     }
 
     public void ChangeIndex()

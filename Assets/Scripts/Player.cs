@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -67,7 +68,34 @@ public class Player : MonoBehaviour
     {
         
     }
+    
+    public void OnSelectProjectile(InputAction.CallbackContext context)
+    {
+        if (!context.started)
 
+            return;
+        if (Mathf.Abs(context.ReadValue<Vector2>().x) > 0.05f && timeOut <= 0 && _crosshairList.Count > 1)
+        {
+            indexProj = Mathf.Clamp(indexProj + (int)Mathf.Sign(context.ReadValue<Vector2>().x) * 1 % _crosshairList.Count, 0, _crosshairList.Count - 1);
+            _objProjectileManager.ChangeIndex();
+            timeOut = 0.25f;
+        }
+    }
+    
+    public void OnWalk(InputAction.CallbackContext context)
+    {
+        
+        if (!context.started)
+
+            return;
+        if (currentPlanet)
+        {
+            Vector3 planetPos = currentPlanet.transform.position;
+            transform.RotateAround(planetPos, _tr.right, context.ReadValue<Vector2>().y);
+            transform.RotateAround(planetPos, _tr.forward, context.ReadValue<Vector2>().x);
+        }
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -88,18 +116,8 @@ public class Player : MonoBehaviour
         }
 
         timeOut -= Time.deltaTime;
-        if (Mathf.Abs(Input.GetAxis("HorizontalLeft")) > 0.05f && timeOut <= 0 && _crosshairList.Count > 1)
-        {
-            indexProj = Mathf.Clamp(indexProj + (int)Mathf.Sign(Input.GetAxis("HorizontalLeft")) * 1 % _crosshairList.Count, 0, _crosshairList.Count - 1);
-            _objProjectileManager.ChangeIndex();
-            timeOut = 0.25f;
-        }
-        if (currentPlanet)
-        {
-            Vector3 planetPos = currentPlanet.transform.position;
-            transform.RotateAround(planetPos, _tr.right, Input.GetAxis("Vertical"));
-            transform.RotateAround(planetPos, _tr.forward, Input.GetAxis("Horizontal"));
-        }
+       
+       
     }
 
    

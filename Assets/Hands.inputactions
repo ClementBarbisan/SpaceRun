@@ -1,0 +1,213 @@
+{
+    "name": "Hands",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "e91c3fda-1069-40f6-ba52-85f13fff6ce9",
+            "actions": [
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "b416ea56-a64c-4212-b1b8-b31b646daf6c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "AddForce",
+                    "type": "Button",
+                    "id": "b10e8500-b7fe-4ae4-82ef-11ca9a733a20",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Return",
+                    "type": "Button",
+                    "id": "05f14f63-bb77-4682-b8db-2764527f90d9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "StopReturn",
+                    "type": "Button",
+                    "id": "c28437f5-0239-487a-8d90-33ffa589613f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Aim",
+                    "type": "Button",
+                    "id": "bb1e4d33-cf7c-4b54-b42e-c20b7593e8ae",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Teleport",
+                    "type": "Button",
+                    "id": "27412e3c-c302-4f7f-81e6-d458e5aafbb1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Release",
+                    "type": "Button",
+                    "id": "94766f0d-05fe-4891-8752-32aff8e6f2f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Walk",
+                    "type": "Value",
+                    "id": "25871d76-88b2-48f1-93ca-5515523fc22e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectProjectile",
+                    "type": "Value",
+                    "id": "666a15e4-28a1-4e70-9798-a092ffc8c8bf",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "581e7ead-d603-4e33-85a4-32c538c1cac8",
+                    "path": "<WMRSpatialController>{LeftHand}/triggerPressed",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "ControllersVR",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "58283d99-5cf7-468c-9715-76e579fd079d",
+                    "path": "<WMRSpatialController>{LeftHand}/triggerPressed",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "ControllersVR",
+                    "action": "AddForce",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "298749c4-b32d-415c-94bf-daae95180f76",
+                    "path": "<WMRSpatialController>{LeftHand}/gripPressed",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "ControllersVR",
+                    "action": "Return",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1a2985bc-7555-440b-b244-2fa4613130d5",
+                    "path": "<WMRSpatialController>{LeftHand}/gripPressed",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "ControllersVR",
+                    "action": "StopReturn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f30a1e0-4eec-42c8-9f83-56018c38a51b",
+                    "path": "<WMRSpatialController>{RightHand}/triggerPressed",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "ControllersVR",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5feee814-799a-492d-9fee-398bea84a2bc",
+                    "path": "<WMRSpatialController>{RightHand}/gripPressed",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "ControllersVR",
+                    "action": "Teleport",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "267e9add-2ae4-4778-8517-2a16098e6afd",
+                    "path": "<WMRSpatialController>{RightHand}/triggerPressed",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "ControllersVR",
+                    "action": "Release",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "699630c0-6b03-45fd-bf57-f00c14f3787e",
+                    "path": "<WMRSpatialController>{RightHand}/joystick",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "ControllersVR",
+                    "action": "Walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4bab6d64-4aec-42b0-84f7-5ae8c69d17fb",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControllersVR",
+                    "action": "Walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "96b7438b-2818-4efe-b4ac-30b4d181d6d6",
+                    "path": "<WMRSpatialController>{LeftHand}/joystick",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "ControllersVR",
+                    "action": "SelectProjectile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "ControllersVR",
+            "bindingGroup": "ControllersVR",
+            "devices": [
+                {
+                    "devicePath": "<XRInputV1::Vendor1118Product1627Version0::SpatialControllerRight>",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

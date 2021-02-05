@@ -11,6 +11,8 @@ EditorBuildSettings:
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 75287bfc43ed2b74698c961a1ee7c0f8,
       type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 32e03cd5cfaf1e94daed6ee779638b41,
+      type: 2}
     com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: 7247b55d935ec384fb12741a492d6b2b,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e7748439717f4474d9440d45c8f79b70,
