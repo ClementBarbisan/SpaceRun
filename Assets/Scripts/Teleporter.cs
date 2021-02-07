@@ -23,14 +23,31 @@ public class Teleporter : MonoBehaviour
     private bool canTeleport = false;
     private bool aim = false;
 
+    private PlayerInputLite inputs;
     // Start is called before the first frame update
     void Awake()
     {
+        inputs = PlayerInputLite.Instance;
         _line = GetComponent<LineRenderer>();
         _pos = new Vector3[2];
         _tr = transform;
         _line.positionCount = 2;
         _line.enabled = false;
+        Debug.Log(FindObjectOfType<PlayerInput>().actions.ToJson());
+        if (inputs == null)
+            return;
+        inputs.CreateAction("teleport", PlayerInputLite.Button.gripPressed, PlayerInputLite.TypeHand.RightHand,
+            PlayerInputLite.TypeController.XRController, InputActionType.Button, 
+            PlayerInputLite.InteractionType.PressAndRelease).performed += OnTeleport;
+        InputAction action = inputs.CreateAction("aim", PlayerInputLite.Button.RightButton,
+            PlayerInputLite.TypeHand.Any,
+            PlayerInputLite.TypeController.Mouse, InputActionType.Button,
+            PlayerInputLite.InteractionType.PressOnly);
+            action.started += OnAim;
+        // inputs.CreateAction("release", PlayerInputLite.Button.triggerPressed, PlayerInputLite.TypeHand.RightHand,
+            // PlayerInputLite.TypeController.XRController, InputActionType.Button,
+            // PlayerInputLite.InteractionType.ReleaseOnly)
+            action.canceled += OnRelease;
     }
 
     IEnumerator SwitchPlanet()
@@ -52,8 +69,6 @@ public class Teleporter : MonoBehaviour
 
     public void OnTeleport(InputAction.CallbackContext context)
     {
-        if (!context.started)
-            return;
         if (!canTeleport)
             return;
         _nextPos = _hit.point - _hit.collider.gameObject.transform.position;
@@ -70,20 +85,12 @@ public class Teleporter : MonoBehaviour
     
     public void OnAim(InputAction.CallbackContext context)
     {
-        if (!context.started)
-            return;
-        Debug.Log("Blop");
         aim = true;
         
     }
 
     public void OnRelease(InputAction.CallbackContext context)
     {
-        Debug.Log("OnReleaseBEfore");
-
-        if (!context.performed)
-            return;
-        Debug.Log("OnRelease");
         aim = false;
         _line.enabled = false;
     }

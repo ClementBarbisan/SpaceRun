@@ -124,18 +124,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &24248798 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4559640570161372276, guid: bcb81063bdd05e24d9263685199b92d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4559640569439341726}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a0cbb02f83087042bc416dd5b78cc3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &114845388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1575,18 +1563,6 @@ MonoBehaviour:
   PrefabHashGenerator: Target (1)
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
---- !u!114 &1254424523 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4559640570726420693, guid: bcb81063bdd05e24d9263685199b92d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4559640569439341726}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 285abe2ad60c7904096827fc31f17290, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1361135680
 GameObject:
   m_ObjectHideFlags: 0
@@ -2151,12 +2127,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1885355951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Script: {fileID: 11500000, guid: e365db16658f4544889a77e7a2ade284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 358968e6052c80e4da75bcdcab216e37,
-    type: 3}
-  m_NotificationBehavior: 2
+  m_Actions: {fileID: 0}
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -2167,168 +2142,12 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 24248798}
-        m_TargetAssemblyTypeName: ProjectileManager, Assembly-CSharp
-        m_MethodName: OnFire
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: b416ea56-a64c-4212-b1b8-b31b646daf6c
-    m_ActionName: LaunchProjectile/Fire
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 24248798}
-        m_TargetAssemblyTypeName: ProjectileManager, Assembly-CSharp
-        m_MethodName: OnAddForce
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: b10e8500-b7fe-4ae4-82ef-11ca9a733a20
-    m_ActionName: LaunchProjectile/AddForce
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 24248798}
-        m_TargetAssemblyTypeName: ProjectileManager, Assembly-CSharp
-        m_MethodName: OnReturn
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 05f14f63-bb77-4682-b8db-2764527f90d9
-    m_ActionName: LaunchProjectile/Return
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 24248798}
-        m_TargetAssemblyTypeName: ProjectileManager, Assembly-CSharp
-        m_MethodName: OnStopReturn
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c28437f5-0239-487a-8d90-33ffa589613f
-    m_ActionName: LaunchProjectile/StopReturn
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1254424523}
-        m_TargetAssemblyTypeName: Teleporter, Assembly-CSharp
-        m_MethodName: OnAim
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: bb1e4d33-cf7c-4b54-b42e-c20b7593e8ae
-    m_ActionName: Player/Aim[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1254424523}
-        m_TargetAssemblyTypeName: Teleporter, Assembly-CSharp
-        m_MethodName: OnTeleport
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 27412e3c-c302-4f7f-81e6-d458e5aafbb1
-    m_ActionName: Player/Teleport
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1254424523}
-        m_TargetAssemblyTypeName: Teleporter, Assembly-CSharp
-        m_MethodName: OnRelease
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 94766f0d-05fe-4891-8752-32aff8e6f2f6
-    m_ActionName: Player/Release
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1885355954}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: OnWalk
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 25871d76-88b2-48f1-93ca-5515523fc22e
-    m_ActionName: Player/Walk
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1885355954}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: OnSelectProjectile
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 666a15e4-28a1-4e70-9798-a092ffc8c8bf
-    m_ActionName: Player/SelectProjectile
+  m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: ControllersVR
-  m_DefaultActionMap: Player
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1885355954 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4559640569788681403, guid: bcb81063bdd05e24d9263685199b92d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4559640569439341726}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1885355951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47190ea03f7be2c49a7bb487cb90946e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1888676439 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8480853373176410612, guid: 0b59e40296d6f974097c549f1e08c652,

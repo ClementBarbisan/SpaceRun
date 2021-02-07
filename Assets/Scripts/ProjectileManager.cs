@@ -19,15 +19,23 @@ public class ProjectileManager : NetworkedBehaviour
     public List<GameObject> projList;
     private bool onReturn = false;
     private bool addForce = false;
+    private PlayerInputLite inputs;
 
     // Start is called before the first frame update
     void Awake()
     {
+        inputs = PlayerInputLite.Instance;
         // tag = "weapon";
         // _rb = GetComponent<Rigidbody>();
         _tr = transform;
         projList = new List<GameObject>();
+        if (inputs == null)
+            return;
         // _currentParent = _tr.parent;
+        inputs.CreateAction("return", PlayerInputLite.Button.gripPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button, PlayerInputLite.InteractionType.PressOnly).performed += OnReturn;
+        inputs.CreateAction("stopreturn", PlayerInputLite.Button.gripPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button, PlayerInputLite.InteractionType.ReleaseOnly).performed += OnStopReturn;
+        inputs.CreateAction("fire", PlayerInputLite.Button.triggerPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button,PlayerInputLite.InteractionType.PressAndRelease).performed += OnFire;
+        inputs.CreateAction("addforce", PlayerInputLite.Button.triggerPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button, PlayerInputLite.InteractionType.PressOnly).started += OnAddForce;
     }
 
     public void GetProjectile(GameObject proj)
@@ -57,9 +65,6 @@ public class ProjectileManager : NetworkedBehaviour
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (!context.started)
-
-            return;
         addForce = false;
         if (projList.Count < maxPrj)
         {
@@ -77,9 +82,6 @@ public class ProjectileManager : NetworkedBehaviour
 
     public void OnStopReturn(InputAction.CallbackContext context)
     {
-        if (!context.performed)
-
-            return;
         onReturn = false;
         if (projList.Count > 0 && Player.Instance.indexProj < projList.Count)
         {
@@ -89,18 +91,12 @@ public class ProjectileManager : NetworkedBehaviour
     
     public void OnReturn(InputAction.CallbackContext context)
     {
-        if (!context.started)
-
-            return;
         onReturn = true;
         
     }
 
     public void OnAddForce(InputAction.CallbackContext context)
     {
-        if (!context.started)
-
-            return;
         addForce = true;
     }
     

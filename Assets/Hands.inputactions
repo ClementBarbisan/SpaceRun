@@ -82,7 +82,7 @@
                 {
                     "name": "",
                     "id": "581e7ead-d603-4e33-85a4-32c538c1cac8",
-                    "path": "<WMRSpatialController>{LeftHand}/triggerPressed",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "ControllersVR",
@@ -93,7 +93,7 @@
                 {
                     "name": "",
                     "id": "58283d99-5cf7-468c-9715-76e579fd079d",
-                    "path": "<WMRSpatialController>{LeftHand}/triggerPressed",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "ControllersVR",
@@ -126,7 +126,7 @@
                 {
                     "name": "",
                     "id": "6f30a1e0-4eec-42c8-9f83-56018c38a51b",
-                    "path": "<WMRSpatialController>{RightHand}/triggerPressed",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "ControllersVR",
@@ -159,8 +159,8 @@
                 {
                     "name": "",
                     "id": "699630c0-6b03-45fd-bf57-f00c14f3787e",
-                    "path": "<WMRSpatialController>{RightHand}/joystick",
-                    "interactions": "Hold",
+                    "path": "<XRController>{RightHand}/joystick",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "ControllersVR",
                     "action": "Walk",
@@ -198,12 +198,12 @@
             "bindingGroup": "ControllersVR",
             "devices": [
                 {
-                    "devicePath": "<XRInputV1::Vendor1118Product1627Version0::SpatialControllerRight>",
+                    "devicePath": "<XRController>",
                     "isOptional": true,
                     "isOR": false
                 },
                 {
-                    "devicePath": "<Keyboard>",
+                    "devicePath": "<Mouse>",
                     "isOptional": true,
                     "isOR": false
                 }

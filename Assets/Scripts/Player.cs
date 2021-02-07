@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
     public ulong id = 0;
     public int kills = 0;
     public int dead = 0;
+    private PlayerInputLite inputs;
+
+
     private void Awake()
     {
         Instance = this;
@@ -34,6 +37,8 @@ public class Player : MonoBehaviour
         _crosshairList = new List<GameObject>();
     }
 
+    
+    
     public void RemoveCrosshair(int index)
     {
         Destroy(_crosshairList[index]);
@@ -66,14 +71,19 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        inputs = PlayerInputLite.Instance;
+        if (inputs == null)
+            return;
+        inputs.CreateAction("walk", PlayerInputLite.Vector2.joystick, PlayerInputLite.TypeHand.RightHand,
+            PlayerInputLite.TypeController.XRController, InputActionType.Value,
+            PlayerInputLite.InteractionType.PressOnly).started += OnWalk;
+        inputs.CreateAction("selectProjectile", PlayerInputLite.Vector2.joystick, PlayerInputLite.TypeHand.LeftHand, 
+            PlayerInputLite.TypeController.XRController, InputActionType.Value,
+            PlayerInputLite.InteractionType.PressOnly).started += OnSelectProjectile;
     }
     
     public void OnSelectProjectile(InputAction.CallbackContext context)
     {
-        if (!context.started)
-
-            return;
         if (Mathf.Abs(context.ReadValue<Vector2>().x) > 0.05f && timeOut <= 0 && _crosshairList.Count > 1)
         {
             indexProj = Mathf.Clamp(indexProj + (int)Mathf.Sign(context.ReadValue<Vector2>().x) * 1 % _crosshairList.Count, 0, _crosshairList.Count - 1);
@@ -84,10 +94,6 @@ public class Player : MonoBehaviour
     
     public void OnWalk(InputAction.CallbackContext context)
     {
-        
-        if (!context.started)
-
-            return;
         if (currentPlanet)
         {
             Vector3 planetPos = currentPlanet.transform.position;
