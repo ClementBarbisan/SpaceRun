@@ -114,7 +114,7 @@ public class PlayerInputLite : PlayerInput
     {
        actionMap.Disable();
        InputAction tmpAction;
-       if (hand == TypeHand.Any)
+       if (control == TypeController.XRController)
             tmpAction = actionMap.AddAction(currentName, typeAction, "<" + control + ">/" + bindType,
             interactionType[(int)interactions], null, null, typeof(T).ToString());
        else

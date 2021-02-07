@@ -33,21 +33,21 @@ public class Teleporter : MonoBehaviour
         _tr = transform;
         _line.positionCount = 2;
         _line.enabled = false;
-        Debug.Log(FindObjectOfType<PlayerInput>().actions.ToJson());
         if (inputs == null)
-            return;
+        inputs.DisableActionMap();
         inputs.CreateAction("teleport", PlayerInputLite.Button.gripPressed, PlayerInputLite.TypeHand.RightHand,
             PlayerInputLite.TypeController.XRController, InputActionType.Button, 
             PlayerInputLite.InteractionType.PressAndRelease).performed += OnTeleport;
-        InputAction action = inputs.CreateAction("aim", PlayerInputLite.Button.RightButton,
-            PlayerInputLite.TypeHand.Any,
-            PlayerInputLite.TypeController.Mouse, InputActionType.Button,
+        InputAction action = inputs.CreateAction("aim", PlayerInputLite.Button.triggerPressed,
+            PlayerInputLite.TypeHand.RightHand,
+            PlayerInputLite.TypeController.XRController, InputActionType.Button,
             PlayerInputLite.InteractionType.PressOnly);
             action.started += OnAim;
         // inputs.CreateAction("release", PlayerInputLite.Button.triggerPressed, PlayerInputLite.TypeHand.RightHand,
             // PlayerInputLite.TypeController.XRController, InputActionType.Button,
             // PlayerInputLite.InteractionType.ReleaseOnly)
             action.canceled += OnRelease;
+        inputs.EnableActionMap();
     }
 
     IEnumerator SwitchPlanet()
