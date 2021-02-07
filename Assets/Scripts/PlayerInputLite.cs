@@ -73,7 +73,9 @@ public class PlayerInputLite : PlayerInput
         thumbstick,
         touchpad,
         joystick,
-        trackpad
+        trackpad,
+        leftStick,
+        rightStick
     }
 
     public enum Vector3
@@ -87,7 +89,9 @@ public class PlayerInputLite : PlayerInput
         gripPressed,
         Space,
         leftButton,
-        rightButton
+        rightButton,
+        leftTrigger,
+        rightTrigger
     };
 
     public enum TypeHand
@@ -101,33 +105,76 @@ public class PlayerInputLite : PlayerInput
     {
         XRController,
         Keyboard,
-        Mouse
+        Mouse,
+        gamepad
     }
 
     private string[] interactionType = new string[3] {"Press", "Press(behavior=1)", "Press(behavior=2)"};
-    private InputActionMap actionMap;
+    public List<InputActionMap> listActionMap;
     public static PlayerInputLite Instance;
     
     public InputAction CreateAction<T>(string currentName, T bindType,
         TypeHand hand = TypeHand.Any, TypeController control = TypeController.XRController, 
         InputActionType typeAction = InputActionType.Value, InteractionType interactions = InteractionType.PressOnly)
     {
-       actionMap.Disable();
+       currentActionMap.Disable();
        InputAction tmpAction;
        if (control == TypeController.XRController)
-            tmpAction = actionMap.AddAction(currentName, typeAction, "<" + control + ">/" + bindType,
-            interactionType[(int)interactions], null, null, typeof(T).ToString());
+            tmpAction = currentActionMap.AddAction(currentName, typeAction, "<" + control + ">/" + bindType,
+            interactionType[(int)interactions], null, null, typeof(T).Name);
        else
        {
-           tmpAction = actionMap.AddAction(currentName, typeAction, "<" + control + ">{" + hand + "}/" + bindType,
-               interactionType[(int)interactions], null, null, typeof(T).ToString());
+           tmpAction = currentActionMap.AddAction(currentName, typeAction, "<" + control + ">{" + hand + "}/" + bindType,
+               interactionType[(int)interactions], null, null, typeof(T).Name);
 
        }
-       actionMap.Enable();
+       currentActionMap.Enable();
        return (tmpAction);
     }
+
+    public void RemoveActionMap(string name)
+    {
+        foreach (InputActionMap map in listActionMap)
+        {
+            if (map.name == name)
+            {
+                map.Dispose();
+                listActionMap.Remove(map);
+                if (currentActionMap.name == name)
+                    currentActionMap = listActionMap[0];
+                currentActionMap.Enable();
+                return;
+            }
+        }
+        Debug.LogWarning("Action Map : " + name + " not found. List unchanged");
+    }
     
-    // Start is called before the first frame update
+    public InputActionMap SwitchActionMap(string name)
+    {
+        foreach (InputActionMap map in listActionMap)
+        {
+            if (map.name == name)
+            {
+                map.Disable();
+                currentActionMap = map;
+                currentActionMap.Enable();
+                return (currentActionMap);
+            }
+        }
+        Debug.LogWarning("Action Map : " + name + " not found.");
+        return (currentActionMap);
+    }
+
+    public InputActionMap CreateActionMap(string nameMap, bool switchToNewMap = true)
+    {
+        InputActionMap map = new InputActionMap(nameMap);
+        listActionMap.Add(map);
+        if (switchToNewMap)
+            currentActionMap = map;
+        return (map);
+    }
+    
+        // Start is called before the first frame update
     void Awake()
     {
         if (Instance)
@@ -137,24 +184,21 @@ public class PlayerInputLite : PlayerInput
             return;
         }
         Instance = this;
-        if (currentActionMap != null)
-            actionMap = currentActionMap;
-        else
-        {
-            actionMap = new InputActionMap("ActionMap");
-            currentActionMap = actionMap;
-        }
+        listActionMap = new List<InputActionMap>();
+        if (currentActionMap == null)
+            currentActionMap =  new InputActionMap("ActionMap");
+        listActionMap.Add(currentActionMap);
         notificationBehavior = PlayerNotifications.InvokeUnityEvents;
     }
 
     public void DisableActionMap()
     {
-        actionMap.Disable();
+        currentActionMap.Disable();
     }
 
     public void EnableActionMap()
     {
-        actionMap.Enable();
+        currentActionMap.Enable();
     }
     
     // Update is called once per frame
