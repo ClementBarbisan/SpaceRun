@@ -5,6 +5,7 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class PlayerInputLite : PlayerInput
 {
     public enum InteractionType
@@ -71,14 +72,14 @@ public class PlayerInputLite : PlayerInput
 
     public enum Vector2
     {
-        thumbstick,
-        touchpad,
-        joystick,
-        trackpad,
-        leftStick,
-        rightStick
+        Thumbstick,
+        Touchpad,
+        Joystick,
+        Trackpad,
+        LeftStick,
+        RightStick
     }
-
+    
     public enum Vector3
     {
         
@@ -86,39 +87,13 @@ public class PlayerInputLite : PlayerInput
     
     public enum Button
     {
-        triggerPressed,
-        gripPressed,
+        TriggerPressed,
+        GripPressed,
         Space,
-        leftButton,
-        rightButton,
-        leftTrigger,
-        rightTrigger
-    };
-
-    private enum Gamepad
-    {
-        leftStick,
-        rightStick,
-        leftTrigger,
-        rightTrigger
-    }
-    
-    private enum Mouse
-    {
-        leftButton,
-        rightButton,
-    }
-    private enum Keyboard
-    {
-        Space,
-    }
-    private enum XRController
-    {
-        triggerPressed,
-        gripPressed,
-        thumbstick,
-        touchpad,
-        joystick,
+        LeftButton,
+        RightButton,
+        LeftTrigger,
+        RightTrigger
     }
     
     public enum TypeHand
@@ -133,33 +108,60 @@ public class PlayerInputLite : PlayerInput
         XRController,
         Keyboard,
         Mouse,
-        gamepad
+        Gamepad
     }
-
-    private string[] interactionType = new string[3] {"Press", "Press(behavior=1)", "Press(behavior=2)"};
+    
+    private enum Gamepad
+    {
+        LeftStick,
+        RightStick,
+        LeftTrigger,
+        RightTrigger
+    }
+    
+    private enum Mouse
+    {
+        LeftButton,
+        RightButton
+    }
+    
+    private enum Keyboard
+    {
+        Space
+    }
+    
+    private enum XRController
+    {
+        TriggerPressed,
+        GripPressed,
+        Thumbstick,
+        Touchpad,
+        Joystick
+    }
+    
+    private readonly string[] _interactionType = {"Press", "Press(behavior=1)", "Press(behavior=2)"};
     public List<InputActionMap> listActionMap;
     public static PlayerInputLite Instance;
-    private Dictionary<TypeController, Type> controllerInputs;
+    private Dictionary<TypeController, Type> _controllerInputs;
     
     public InputAction CreateAction<T>(string currentName, T bindType,
         TypeHand hand = TypeHand.Any, TypeController control = TypeController.XRController, 
-        InputActionType typeAction = InputActionType.Value, InteractionType interactions = InteractionType.PressOnly)
+        InputActionType typeAction = InputActionType.Value, InteractionType interactions = InteractionType.PressOnly) where T : Enum
     {
-        if (!Enum.IsDefined(controllerInputs[control], bindType.ToString()))
+        if (!Enum.IsDefined(_controllerInputs[control], bindType.ToString()))
         {
             Debug.LogError("Incompatible binding " + control + "/" + bindType + "! Action not created!");
             string logFix = "Try one of these input type : ";
-            foreach (string item in Enum.GetNames(controllerInputs[control]))
+            foreach (string item in Enum.GetNames(_controllerInputs[control]))
             {
-                
                 logFix += item + ", ";
             }
 
-            string typeControl = control.ToString();
+            string typeControl = "Unavailable";
             foreach (string item in Enum.GetNames(typeof(TypeController)))
             {
                 TypeController controller = (TypeController) Enum.Parse(typeof(TypeController), item);
-                if (Enum.IsDefined(controllerInputs[controller], bindType.ToString()))
+                if (Enum.IsDefined(_controllerInputs[controller], bindType.ToString()))
                 {
                     typeControl = item.ToString();
                     break;
@@ -174,11 +176,11 @@ public class PlayerInputLite : PlayerInput
         InputAction tmpAction;
         if (control == TypeController.XRController) 
             tmpAction = currentActionMap.AddAction(currentName, typeAction, "<" + control + ">{" + hand + "}/"  + bindType,
-            interactionType[(int)interactions], null, null, typeof(T).Name);
+            _interactionType[(int)interactions], null, null, typeof(T).Name);
         else
         {
            tmpAction = currentActionMap.AddAction(currentName, typeAction, "<" + control + ">/" + bindType,
-               interactionType[(int)interactions], null, null, typeof(T).Name);
+               _interactionType[(int)interactions], null, null, typeof(T).Name);
 
         }
         currentActionMap.Enable();
@@ -242,11 +244,11 @@ public class PlayerInputLite : PlayerInput
             currentActionMap =  new InputActionMap("ActionMap");
         listActionMap.Add(currentActionMap);
         notificationBehavior = PlayerNotifications.InvokeUnityEvents;
-        controllerInputs = new Dictionary<TypeController, Type>();
-        controllerInputs.Add(TypeController.XRController, typeof(XRController));
-        controllerInputs.Add(TypeController.gamepad, typeof(Gamepad));
-        controllerInputs.Add(TypeController.Keyboard, typeof(Keyboard));
-        controllerInputs.Add(TypeController.Mouse, typeof(Mouse));
+        _controllerInputs = new Dictionary<TypeController, Type>();
+        _controllerInputs.Add(TypeController.XRController, typeof(XRController));
+        _controllerInputs.Add(TypeController.Gamepad, typeof(Gamepad));
+        _controllerInputs.Add(TypeController.Keyboard, typeof(Keyboard));
+        _controllerInputs.Add(TypeController.Mouse, typeof(Mouse));
     }
 
     public void DisableActionMap()

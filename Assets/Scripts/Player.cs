@@ -74,10 +74,10 @@ public class Player : MonoBehaviour
         inputs = PlayerInputLite.Instance;
         if (inputs == null)
             return;
-        inputs.CreateAction("walk", PlayerInputLite.Vector2.joystick, PlayerInputLite.TypeHand.RightHand,
+        inputs.CreateAction("walk", PlayerInputLite.Vector2.Joystick, PlayerInputLite.TypeHand.RightHand,
             PlayerInputLite.TypeController.XRController, InputActionType.Value,
             PlayerInputLite.InteractionType.PressOnly).started += OnWalk;
-        inputs.CreateAction("selectProjectile", PlayerInputLite.Vector2.joystick, PlayerInputLite.TypeHand.LeftHand, 
+        inputs.CreateAction("selectProjectile", PlayerInputLite.Vector2.Joystick, PlayerInputLite.TypeHand.LeftHand, 
             PlayerInputLite.TypeController.XRController, InputActionType.Value,
             PlayerInputLite.InteractionType.PressOnly).started += OnSelectProjectile;
     }

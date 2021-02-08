@@ -32,10 +32,10 @@ public class ProjectileManager : NetworkedBehaviour
         if (inputs == null)
             return;
         // _currentParent = _tr.parent;
-        inputs.CreateAction("return", PlayerInputLite.Button.gripPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button, PlayerInputLite.InteractionType.PressOnly).performed += OnReturn;
-        inputs.CreateAction("stopreturn", PlayerInputLite.Button.gripPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button, PlayerInputLite.InteractionType.ReleaseOnly).performed += OnStopReturn;
-        inputs.CreateAction("fire", PlayerInputLite.Button.triggerPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button,PlayerInputLite.InteractionType.PressAndRelease).performed += OnFire;
-        inputs.CreateAction("addforce", PlayerInputLite.Button.triggerPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button, PlayerInputLite.InteractionType.PressOnly).started += OnAddForce;
+        inputs.CreateAction("return", PlayerInputLite.Button.GripPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button, PlayerInputLite.InteractionType.PressOnly).performed += OnReturn;
+        inputs.CreateAction("stopreturn", PlayerInputLite.Button.GripPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button, PlayerInputLite.InteractionType.ReleaseOnly).performed += OnStopReturn;
+        inputs.CreateAction("fire", PlayerInputLite.Button.TriggerPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button,PlayerInputLite.InteractionType.PressAndRelease).performed += OnFire;
+        inputs.CreateAction("addforce", PlayerInputLite.Button.TriggerPressed, PlayerInputLite.TypeHand.LeftHand, PlayerInputLite.TypeController.XRController, InputActionType.Button, PlayerInputLite.InteractionType.PressOnly).started += OnAddForce;
     }
 
     public void GetProjectile(GameObject proj)

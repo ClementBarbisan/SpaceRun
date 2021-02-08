@@ -35,10 +35,10 @@ public class Teleporter : MonoBehaviour
         _line.enabled = false;
         if (inputs == null)
             return;
-        inputs.CreateAction("teleport", PlayerInputLite.Button.gripPressed, PlayerInputLite.TypeHand.RightHand,
+        inputs.CreateAction("teleport", PlayerInputLite.Button.GripPressed, PlayerInputLite.TypeHand.RightHand,
             PlayerInputLite.TypeController.XRController, InputActionType.Button, 
             PlayerInputLite.InteractionType.PressAndRelease).performed += OnTeleport;
-        InputAction action = inputs.CreateAction("aim", PlayerInputLite.Button.triggerPressed,
+        InputAction action = inputs.CreateAction("aim", PlayerInputLite.Button.TriggerPressed,
             PlayerInputLite.TypeHand.RightHand, PlayerInputLite.TypeController.XRController, InputActionType.Button,
             PlayerInputLite.InteractionType.PressOnly);
             action.started += OnAim;
