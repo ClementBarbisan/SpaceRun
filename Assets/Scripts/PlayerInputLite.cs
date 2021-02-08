@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -94,6 +95,32 @@ public class PlayerInputLite : PlayerInput
         rightTrigger
     };
 
+    private enum Gamepad
+    {
+        leftStick,
+        rightStick,
+        leftTrigger,
+        rightTrigger
+    }
+    
+    private enum Mouse
+    {
+        leftButton,
+        rightButton,
+    }
+    private enum Keyboard
+    {
+        Space,
+    }
+    private enum XRController
+    {
+        triggerPressed,
+        gripPressed,
+        thumbstick,
+        touchpad,
+        joystick,
+    }
+    
     public enum TypeHand
     {
         Any,
@@ -112,24 +139,50 @@ public class PlayerInputLite : PlayerInput
     private string[] interactionType = new string[3] {"Press", "Press(behavior=1)", "Press(behavior=2)"};
     public List<InputActionMap> listActionMap;
     public static PlayerInputLite Instance;
+    private Dictionary<TypeController, Type> controllerInputs;
     
     public InputAction CreateAction<T>(string currentName, T bindType,
         TypeHand hand = TypeHand.Any, TypeController control = TypeController.XRController, 
         InputActionType typeAction = InputActionType.Value, InteractionType interactions = InteractionType.PressOnly)
     {
-       currentActionMap.Disable();
-       InputAction tmpAction;
-       if (control == TypeController.XRController)
-            tmpAction = currentActionMap.AddAction(currentName, typeAction, "<" + control + ">/" + bindType,
+        if (!Enum.IsDefined(controllerInputs[control], bindType.ToString()))
+        {
+            Debug.LogError("Incompatible binding " + control + "/" + bindType + "! Action not created!");
+            string logFix = "Try one of these input type : ";
+            foreach (string item in Enum.GetNames(controllerInputs[control]))
+            {
+                
+                logFix += item + ", ";
+            }
+
+            string typeControl = control.ToString();
+            foreach (string item in Enum.GetNames(typeof(TypeController)))
+            {
+                TypeController controller = (TypeController) Enum.Parse(typeof(TypeController), item);
+                if (Enum.IsDefined(controllerInputs[controller], bindType.ToString()))
+                {
+                    typeControl = item.ToString();
+                    break;
+                }
+            }
+            logFix += "or change controller type to " + typeControl + " !";
+            Debug.LogError(logFix);
+            return (null);
+        }
+
+        currentActionMap.Disable();
+        InputAction tmpAction;
+        if (control == TypeController.XRController) 
+            tmpAction = currentActionMap.AddAction(currentName, typeAction, "<" + control + ">{" + hand + "}/"  + bindType,
             interactionType[(int)interactions], null, null, typeof(T).Name);
-       else
-       {
-           tmpAction = currentActionMap.AddAction(currentName, typeAction, "<" + control + ">{" + hand + "}/" + bindType,
+        else
+        {
+           tmpAction = currentActionMap.AddAction(currentName, typeAction, "<" + control + ">/" + bindType,
                interactionType[(int)interactions], null, null, typeof(T).Name);
 
-       }
-       currentActionMap.Enable();
-       return (tmpAction);
+        }
+        currentActionMap.Enable();
+        return (tmpAction);
     }
 
     public void RemoveActionMap(string name)
@@ -189,6 +242,11 @@ public class PlayerInputLite : PlayerInput
             currentActionMap =  new InputActionMap("ActionMap");
         listActionMap.Add(currentActionMap);
         notificationBehavior = PlayerNotifications.InvokeUnityEvents;
+        controllerInputs = new Dictionary<TypeController, Type>();
+        controllerInputs.Add(TypeController.XRController, typeof(XRController));
+        controllerInputs.Add(TypeController.gamepad, typeof(Gamepad));
+        controllerInputs.Add(TypeController.Keyboard, typeof(Keyboard));
+        controllerInputs.Add(TypeController.Mouse, typeof(Mouse));
     }
 
     public void DisableActionMap()

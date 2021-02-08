@@ -25,7 +25,7 @@ public class Teleporter : MonoBehaviour
 
     private PlayerInputLite inputs;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         inputs = PlayerInputLite.Instance;
         _line = GetComponent<LineRenderer>();
@@ -39,7 +39,7 @@ public class Teleporter : MonoBehaviour
             PlayerInputLite.TypeController.XRController, InputActionType.Button, 
             PlayerInputLite.InteractionType.PressAndRelease).performed += OnTeleport;
         InputAction action = inputs.CreateAction("aim", PlayerInputLite.Button.triggerPressed,
-            PlayerInputLite.TypeHand.RightHand, PlayerInputLite.TypeController.XRController, InputActionType.Button,
+            PlayerInputLite.TypeHand.RightHand, PlayerInputLite.TypeController.Mouse, InputActionType.Button,
             PlayerInputLite.InteractionType.PressOnly);
             action.started += OnAim;
         // inputs.CreateAction("release", PlayerInputLite.Button.triggerPressed, PlayerInputLite.TypeHand.RightHand,
@@ -67,7 +67,6 @@ public class Teleporter : MonoBehaviour
 
     public void OnTeleport(InputAction.CallbackContext context)
     {
-        Debug.Log(inputs.currentActionMap.ToJson());
         if (!canTeleport)
             return;
         _nextPos = _hit.point - _hit.collider.gameObject.transform.position;

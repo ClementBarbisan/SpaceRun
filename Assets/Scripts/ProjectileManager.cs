@@ -22,7 +22,7 @@ public class ProjectileManager : NetworkedBehaviour
     private PlayerInputLite inputs;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         inputs = PlayerInputLite.Instance;
         // tag = "weapon";

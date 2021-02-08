@@ -2148,6 +2148,7 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+  listActionMap: []
 --- !u!1 &1888676439 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8480853373176410612, guid: 0b59e40296d6f974097c549f1e08c652,
