@@ -19,3 +19,5 @@ EditorBuildSettings:
       type: 2}
     com.unity.xr.management.vr_sim_settings: {fileID: 11400000, guid: 5ac0435a6ba43f547a3d0f5fb6e83435,
       type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: cd92b8fe89ea7af44aa1b32c95422e94,
+      type: 2}
